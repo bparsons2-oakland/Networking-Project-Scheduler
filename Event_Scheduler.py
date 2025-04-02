@@ -155,6 +155,10 @@ def server() -> None:
     
     try:
         socket_instance = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        # Allow for multiple connections on the one socket
+        socket_instance.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        
         socket_instance.bind(('', Port))
         socket_instance.listen(4)
 
